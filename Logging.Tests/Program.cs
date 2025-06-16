@@ -5,7 +5,7 @@ public static class Program
   static void Main()
   {
     Action<Message>[] outputMethods = [(msg) => Console.WriteLine(msg)];
-    LogSettings logSettings = new() { AnsiColors = true, Debug = true };
+    LogSettings logSettings = new() { ColorType = ColorType.ANSI, Debug = true };
     Logger logger = new(outputMethods, logSettings);
 
     logger.Log("Test info");

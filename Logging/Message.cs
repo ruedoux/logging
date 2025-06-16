@@ -43,11 +43,10 @@ public readonly struct Message
     Text = text;
   }
 
-  public string GetAsString(bool withContext = true)
+  public string GetAsString(bool disableColor = false)
   {
     var builder = new StringBuilder();
-    if (withContext)
-      builder.Append(GetContext()).Append(" : ");
+    builder.Append(GetContext(disableColor)).Append(" : ");
     builder.Append(Text);
     return builder.ToString();
   }
@@ -55,12 +54,12 @@ public readonly struct Message
   public override string ToString()
     => GetAsString();
 
-  private string GetContext()
+  private string GetContext(bool disableColor)
   {
     string finalTypeStr = TypeStr;
-    if (logSettings.BBCode)
+    if (logSettings.ColorType == ColorType.BBCODE && !disableColor)
       finalTypeStr = AddBBCodeToString(finalTypeStr, BBCodeColors[Type]);
-    if (logSettings.AnsiColors)
+    if (logSettings.ColorType == ColorType.ANSI && !disableColor)
       finalTypeStr = AddAnsiColorToString(finalTypeStr, AnsiColors[Type]);
 
     var contextBuilder = new StringBuilder();

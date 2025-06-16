@@ -14,6 +14,6 @@ public class MessageFileWriter
   public void Write(Message message)
   {
     using StreamWriter writer = new(filePath, true);
-    writer.WriteLine(message.GetAsString(false));
+    writer.WriteLine(message.GetAsString(disableColor: true));
   }
 }

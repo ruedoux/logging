@@ -4,13 +4,14 @@ using System.Text;
 
 namespace Qwaitumin.Logging;
 
+
+public enum ColorType { NONE, ANSI, BBCODE }
 public record LogSettings(
   bool SupressError = false,
   bool SupressWarning = false,
   bool LogThread = false,
   bool Debug = false,
-  bool BBCode = false,
-  bool AnsiColors = false,
+  ColorType ColorType = ColorType.NONE,
   uint ClassNameSize = 16,
   string TimeFormat = "HH:mm:ss.fff",
   uint ThreadIdSize = 8
