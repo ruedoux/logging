@@ -27,6 +27,8 @@ public class Logger(IEnumerable<Action<Message>> observers, LogSettings logSetti
   private readonly LogSettings logSettings = logSettings;
   private static readonly char[] separator = ['\r', '\n'];
 
+  public bool SilenceLogging = false;
+
   public static string ParseAsString(params object?[]? msgs)
   {
     List<object?> objects = [];
@@ -145,7 +147,10 @@ public class Logger(IEnumerable<Action<Message>> observers, LogSettings logSetti
   }
 
   private void PushMessage(Message message)
-   => ForwardMessageToObservers(message, observerNotifier);
+  {
+    if (!SilenceLogging)
+      ForwardMessageToObservers(message, observerNotifier);
+  }
 
   private sealed class ObserverNotifier<T>
   {
